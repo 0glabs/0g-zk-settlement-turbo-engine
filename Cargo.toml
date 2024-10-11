@@ -1,0 +1,39 @@
+[package]
+name = "rust-prover"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+num-bigint = { version = "=0.4.3", default-features = false, features = ["rand"] }
+ark-serialize = "0.4"
+ark-ff = "0.4.1"
+ark-ec = "0.4.1"
+ark-bn254 = "0.4"
+ark-std = "0.4"
+ark-groth16 = { version = "=0.4.0"}
+ark-circom = { version = "0.1.0" }
+
+thiserror = "1.0"
+log = "0.4"
+env_logger = "0.9"
+hex = "0.4.3"
+regex = "1.7"
+
+futures = "0.3"
+
+[patch.crates-io]
+wasmer = { git = "https://github.com/0glabs/wasmer.git", rev = "4c2dbdc" }
+ark-groth16 = { git = "https://github.com/0glabs/0g-groth16-gpu-zk-settlment-dep.git", rev = "4e5915b6024471c669a5473da4a1006724918fca" }
+# ark-groth16 = { path = "../0g-groth16-gpu" }
+ark-circom = { git = "https://github.com/0glabs/circom-compat.git", rev = "87b8855"}
+
+
+[features]
+default = ["ark-groth16/parallel"]
+cuda = ["ark-groth16/cuda-bn254"]
